@@ -1,20 +1,25 @@
 package fixxit.homeboyz.tikiti.Utils;
 
-import java.util.ArrayList;
-
 /**
  * Created by homeboyz on 3/24/16.
  */
 public class Event {
-    private String title, thumbnailUrl;
-    private int date;
+    private String title, image;
+    private String date;
+    private int id;
 
-    public Event(){}
-
-    public Event(String name, String thumbnailUrl, int date) {
+    public Event(int id, String name, String date, String image, Object o, String university_name, String s, Object o1) {
+        this.id = id;
         this.title = name;
-        this.thumbnailUrl = thumbnailUrl;
+        this.image = image;
         this.date = date;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -25,19 +30,19 @@ public class Event {
         this.title = name;
     }
 
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setThumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
