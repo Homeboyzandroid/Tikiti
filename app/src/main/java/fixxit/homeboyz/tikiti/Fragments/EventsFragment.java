@@ -42,6 +42,12 @@ import fixxit.homeboyz.tikiti.Utils.Event;
  */
 public class EventsFragment extends Fragment {
 
+    public static final String Event_ID = "event_id";
+    public static final String event_name = "event_name";
+    /*public static final String Event_ID = "event_id";
+    public static final String Event_ID = "event_id";
+    public static final String Event_ID = "event_id";*/
+
     private ListView lvUniversities;
     //    private String universitiesUrl = "http://10.0.2.2/php_tizzi/php_list_db_example/universities.php";
     private String universitiesUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getAllActiveEvents";
@@ -52,6 +58,10 @@ public class EventsFragment extends Fragment {
 
     private ProgressDialog mProgress;
 
+    String title;
+    String location;
+    String description;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,15 +69,18 @@ public class EventsFragment extends Fragment {
 
         lvUniversities = (ListView)view.findViewById(R.id.lvUniversities);
 
-      /*  lvUniversities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       lvUniversities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+              //Toast.makeText(getActivity(),unisList.get(),Toast.LENGTH_SHORT).show();
 
                 Intent intent_more_details = new Intent(getActivity(), EventDetails.class);
-                intent_more_details.putExtra(EventDetails.UNIVERSITY_ID, unisList.get(position).getId());
+
+                intent_more_details.putExtra(EventDetails.Event_ID, unisList.get(position).getId());
+              intent_more_details.putExtra(EventDetails.event_name, unisList.get(position).getTitle());
                 startActivity(intent_more_details);
             }
-        });*/
+        });
 
 
         showProgress();
