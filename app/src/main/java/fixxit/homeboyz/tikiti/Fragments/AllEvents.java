@@ -49,7 +49,7 @@ public class AllEvents extends Fragment {
         adapter = new CustomListAdapter(getActivity(),eventlist);
         listView.setAdapter(adapter);
 
-        pDialog = new ProgressDialog(getActivity());
+        pDialog = new ProgressDialog(getActivity());git
         //showing progress dialog before making volley request
         pDialog.setMessage ("loading all events..");
         pDialog.show();
