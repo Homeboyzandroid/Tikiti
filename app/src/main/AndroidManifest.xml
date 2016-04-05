@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Main2Activity"
+            android:name=".MainActivityDrawer"
             android:label="@string/all_events"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".EventDetails"></activity>
+        <activity android:name=".EventDetails" />
+        <activity android:name=".SplashActivity"></activity>
     </application>
 
 </manifest>
