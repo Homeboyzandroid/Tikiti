@@ -1,79 +1,94 @@
 package fixxit.homeboyz.tikiti.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
+import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import fixxit.homeboyz.tikiti.R;
 import fixxit.homeboyz.tikiti.Utils.Event;
 
 /**
- * Created by homeboyz on 3/24/16.
+ * Created by homeboyz on 3/31/16.
  */
 public class CustomListAdapter extends BaseAdapter {
-
-    private Activity activity;
-    private LayoutInflater inflater;
-    private List<Event> eventItems;
+    private ArrayList<Event> listItems;
+    private Context mContext;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
-    public CustomListAdapter(Activity activity, List<Event> eventItems) {
-        this.activity = activity;
-        this.eventItems = eventItems;
+    public CustomListAdapter(Context context, ArrayList<Event> items) {
+        this.mContext = context;
+        this.listItems = items;
+
     }
+
 
     @Override
     public int getCount() {
-        return eventItems.size();
+        return listItems.size();
     }
 
     @Override
-    public Object getItem(int location) {
-        return eventItems.get(location);
-    }
-
-    @Override
-    public long getItemId(int position) {
+    public Object getItem(int position) {
         return position;
     }
 
     @Override
+    public long getItemId(int position) {
+
+        return listItems.indexOf(getItem(position));
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (inflater == null)
-            inflater = (LayoutInflater) activity
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null)
-            convertView = inflater.inflate(R.layout.event_items, null);
 
-        if (imageLoader == null)
-            imageLoader = AppController.getInstance().getImageLoader();
-        NetworkImageView thumbNail = (NetworkImageView) convertView
-                .findViewById(R.id.thumbnail);
-        TextView title = (TextView) convertView.findViewById(R.id.title);
-        TextView date = (TextView) convertView.findViewById(R.id.date);
+        ViewHolder viewHolder;
+        View view = convertView;
 
-        // getting movie data for the row
-        Event m = eventItems.get(position);
+        if (view == null) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.event_items, parent, false);
 
-        // thumbnail image
-        thumbNail.setImageUrl(m.getThumbnailUrl(), imageLoader);
+            viewHolder = new ViewHolder();
 
-        // title
-        title.setText(m.getTitle());
+            viewHolder.imgimage = (ImageView) view.findViewById(R.id.eventimage);
+
+            viewHolder.txtUniName = (TextView) view.findViewById(R.id.eventtitle);
+            viewHolder.txtUniDesc = (TextView) view.findViewById(R.id.eventdate);
+
+            viewHolder.txtUniId = (TextView) view.findViewById(R.id.uniId);
+
+            view.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        Event model = listItems.get(position);
+//        System.out.println(model.getTitle());
+        viewHolder.txtUniName.setText(model.getTitle());
+        viewHolder.txtUniDesc.setText(model.getDate());
+        /// Trigger the download of the URL asynchronously into the image view.
+        Picasso.with(mContext)
+                .load(model.getImage())
+                .into(viewHolder.imgimage);
+
+        viewHolder.txtUniId.setText(Integer.toString(model.getId()));
 
 
-        // release year
-        date.setText(String.valueOf(m.getDate()));
+        return view;
+    }
 
-        return convertView;
+    private static class ViewHolder {
+        TextView txtUniName;
+        TextView txtUniDesc;
+        TextView txtUniId;
+        ImageView imgimage;
     }
 }

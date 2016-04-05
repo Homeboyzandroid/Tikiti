@@ -1,10 +1,7 @@
 package fixxit.homeboyz.tikiti;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import fixxit.homeboyz.tikiti.Fragments.AllEvents;
+import fixxit.homeboyz.tikiti.Fragments.EventsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -91,11 +88,11 @@ public class MainActivity extends AppCompatActivity
         Class fragmentClass = null;
         switch (item.getItemId()) {
             case R.id.nav_camera:
-                fragmentClass = AllEvents.class;
+                fragmentClass = EventsFragment.class;
 
                 break;
             default:
-                fragmentClass = AllEvents.class;
+                fragmentClass = EventsFragment.class;
         }
                 try {
                     fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();

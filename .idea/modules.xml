@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/firstlib/firstlib.iml" filepath="$PROJECT_DIR$/firstlib/firstlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/tikiti.iml" filepath="$PROJECT_DIR$/tikiti.iml" />
     </modules>
   </component>

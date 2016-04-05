@@ -46,12 +46,12 @@ public class AllEvents extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.content_main, container, false);
         listView  = (ListView)v.findViewById(R.id.list);
-        adapter = new CustomListAdapter(getActivity(),eventlist);
+       // adapter = new CustomListAdapter(getActivity(),eventlist);
         listView.setAdapter(adapter);
 
-        pDialog = new ProgressDialog(getActivity());git
+        pDialog = new ProgressDialog(getActivity());
         //showing progress dialog before making volley request
-        pDialog.setMessage ("loading all events..");
+        pDialog.setMessage ("loading events..");
         pDialog.show();
 
         //creating volley request
@@ -69,13 +69,13 @@ public class AllEvents extends Fragment {
 
                             JSONObject obj = response.getJSONObject(i);
                             System.err.println(">>>> " + obj);
-                                Event event = new Event();
+                               /* Event event = new Event();
                                 event.setTitle(obj.getString("eventName"));
                                 event.setThumbnailUrl(obj.getString("imageUrl"));
                                 event.setDate(obj.getInt("eventStart"));
 
                                 // adding movie to movies array
-                                eventlist.add(event);
+                                eventlist.add(event);*/
 
                         }
                         } catch (JSONException e) {
