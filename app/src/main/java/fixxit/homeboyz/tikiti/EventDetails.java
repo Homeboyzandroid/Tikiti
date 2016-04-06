@@ -40,7 +40,7 @@ public class EventDetails extends AppCompatActivity {
     public static String Event_ID = "event_id";
 
     public static final String event_name = "event_name";
-    private String requestUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getEventTicketCategories/27";
+    private String requestUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getEventTicketCategories/"+ Event_ID;
 
 
     private Bundle extras;
@@ -162,37 +162,4 @@ public class EventDetails extends AppCompatActivity {
     private void stopProgress() {
         mProgress.cancel();
     }
-
-    public void Test() {
-        // String s = "fred";  // use this if you want to test the exception below
-        String s = "100";
-
-        try {
-            // the String to int conversion happens here
-            int i = Integer.parseInt(s.trim());
-
-            // print out the value after the conversion
-            System.out.println("int i = " + i);
-
-        } catch (NumberFormatException nfe) {
-            System.out.println("NumberFormatException: " + nfe.getMessage());
-            Log.d("NumberFormatException: ", "+ nfe.getMessage()");
-        }
-        //sometimes android suck when it comes to developing with json and url that do not work
-        //to make the matter worse is when you are working with guys who dont care or the person
-        //who developed that api does not change it in a way that android or java can consume it
-        //imagine the little saraly that am paid at homeboyz and the guys dont what to change their url
-        //this is rubish and wastage of time sometimes//
-        //but there is one prayer that i keep on asking my God and it is all about when i will start my own business
-        /// this is my prayer everyday to start my own business in nairobi or somewhere else that will make me help
-        //the people around me and my familu.
-        //Another prayer God please give me a good loving and supportive husband to be the father of my kids.
-        //I would like my daugher easther to one day go to an international shchool and to be doing amaizing thing
-        //I would also like it when she becomes a musician a  gosple muscian and  have a beutiful voice like that of her grandmother
-        //Remember my brother help githuku to leave his own live and know that no one is going to help him in life.
-        //help Kiige to understand his talent cos education does not work for him
-        //help Chege I love his with all his disabilities because i know God You created him with a reason and he will serve you.
-        //I dnt want to be a prostiture or a loose girl and I ask D
-    }
-
 }
