@@ -70,7 +70,7 @@ public class EventDetails extends AppCompatActivity {
         txtlocation = (TextView) findViewById(R.id.location);
 
         fetchDetails();
-        Test();
+
     }
 
     private void fetchDetails() {
