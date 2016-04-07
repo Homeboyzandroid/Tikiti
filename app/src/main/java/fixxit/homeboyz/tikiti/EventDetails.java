@@ -2,12 +2,18 @@ package fixxit.homeboyz.tikiti;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +28,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,19 +37,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fixxit.homeboyz.tikiti.Adapters.AppController;
-
-
+import fixxit.homeboyz.tikiti.Utils.Event;
 
 
 public class EventDetails extends AppCompatActivity {
 
-
+    private static final String TAG = "PostFragment";
     public static String Event_ID = "event_id";
-
     public static final String event_name = "event_name";
-    private String requestUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getEventTicketCategories/"+ Event_ID;
+    private String requestUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getAllActiveEvents";
 
-
+    private WebView webView;
     private Bundle extras;
     private ProgressDialog mProgress;
     private String tag_json_obj = "request_single_uni_details";// Tag used to cancel the request
@@ -52,6 +57,7 @@ public class EventDetails extends AppCompatActivity {
 
     private TextView txttitle, txtdesc, txtlocation, txtdate, txtLng;
     private Button btnbuy;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,40 +66,52 @@ public class EventDetails extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        extras = getIntent().getExtras();
-        if (extras != null) {
-            eventid = extras.getInt(Event_ID);
-        }
 
-        txttitle = (TextView) findViewById(R.id.title);
+        txttitle = (TextView) findViewById(R.id.evntDetailtitle);
+        txttitle.setText(getIntent().getExtras().getString("eventName"));
+
+
         txtdesc = (TextView) findViewById(R.id.desc);
-        txtlocation = (TextView) findViewById(R.id.location);
+        //txtdesc.setText(getIntent().getExtras().getString("description"));
 
+        //setting or parsing the image
+        /*imageView = (ImageView)findViewById(R.id.image);
+        byte[] byteArray = extras.getByteArray("imageUrl");
+        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        imageView.setImageBitmap(bmp);*/
+       // imageView.setImageURI(Uri.parse(getIntent().getExtras().getString("imageUrl")));
         fetchDetails();
 
     }
 
-    private void fetchDetails() {
 
+    private void fetchDetails() {
         showProgress();
 
 
         Uri.Builder builder = Uri.parse(requestUrl).buildUpon();
-        //        builder.appendQueryParameter("event_id", Integer.toString(eventid));
+        builder.appendQueryParameter("event_id", Integer.toString(eventid));
 
         // http://testing.mlab-training.devs.mobi/php_list_db_example/universityinfo.php?university_id=2
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, builder.toString(), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
-                try {
-                    txttitle.setText(response.getString("eventName"));
-                    txtdesc.setText(response.getString("description"));
-                    txtlocation.setText(response.getString("eventLocation"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (response.length() > 0) {//checking if response is null
+                    try {
+                        JSONArray unisArray = response.getJSONArray("eventsList");
+                        System.err.println(unisArray);
+                        for (int i = 0; i < unisArray.length(); i++) {
+                            JSONObject unisItem = unisArray.getJSONObject(i);
+
+                            txtdesc.setText(response.getString("description"));
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    stopProgress();
                 }
-                stopProgress();
             }
         }, new Response.ErrorListener() {
 
