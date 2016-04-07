@@ -42,9 +42,25 @@ import fixxit.homeboyz.tikiti.Utils.Event;
  */
 public class EventsFragment extends Fragment {
 
-    private ListView lvUniversities;
+    private static final String TEXT_FRAGMENT = "TEXT_FRAGMENT";
+
+    public static EventsFragment newInstance(String text){
+        EventsFragment mFragment = new EventsFragment();
+        Bundle mBundle = new Bundle();
+        mBundle.putString(TEXT_FRAGMENT, text);
+        mFragment.setArguments(mBundle);
+        return mFragment;
+    }
+
+    public static final String Event_ID = "event_id";
+    public static final String event_name = "event_name";
+    /*public static final String Event_ID = "event_id";
+    public static final String Event_ID = "event_id";
+    public static final String Event_ID = "event_id";*/
+
+    private ListView lvevents;
     //    private String universitiesUrl = "http://10.0.2.2/php_tizzi/php_list_db_example/universities.php";
-    private String universitiesUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getAllActiveEvents";
+    private String eventsUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getAllActiveEvents";
     private String tag_json_obj = "request_unis_list";
 
     private CustomListAdapter adapter;
@@ -52,27 +68,34 @@ public class EventsFragment extends Fragment {
 
     private ProgressDialog mProgress;
 
+    String title;
+    String location;
+    String description;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main2,container, false);
 
-        lvUniversities = (ListView)view.findViewById(R.id.lvUniversities);
+        lvevents = (ListView)view.findViewById(R.id.lvevents);
 
-      /*  lvUniversities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       lvevents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+              Toast.makeText(getActivity(),""+unisList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
 
                 Intent intent_more_details = new Intent(getActivity(), EventDetails.class);
-                intent_more_details.putExtra(EventDetails.UNIVERSITY_ID, unisList.get(position).getId());
+
+                intent_more_details.putExtra(EventDetails.Event_ID, unisList.get(position).getId());
+             // intent_more_details.putExtra(EventDetails.event_name, unisList.get(position).getTitle());
                 startActivity(intent_more_details);
             }
-        });*/
+        });
 
 
         showProgress();
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, universitiesUrl, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, eventsUrl, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -84,11 +107,11 @@ public class EventsFragment extends Fragment {
                             JSONObject unisItem = unisArray.getJSONObject(i);
 
                             int id = unisItem.getInt("eventId");
-                            String university_name = unisItem.getString("eventName");
+                            String event_name = unisItem.getString("eventName");
                             String date = unisItem.getString("eventStart");
                             String image = unisItem.getString("imageUrl");
 
-                            Event universitiesModel = new Event(id, university_name,date, image, null, null, null, null);
+                            Event universitiesModel = new Event(id, event_name,date, image, null, null, null, null);
                             unisList.add(universitiesModel);
 
                             addToAdapter();
@@ -163,7 +186,7 @@ public class EventsFragment extends Fragment {
     private void addToAdapter() {
         adapter = new CustomListAdapter(getActivity(), unisList);
         adapter.notifyDataSetChanged();
-        lvUniversities.setAdapter(adapter);
+        lvevents.setAdapter(adapter);
 
     }
 

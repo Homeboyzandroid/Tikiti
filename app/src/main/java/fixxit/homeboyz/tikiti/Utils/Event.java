@@ -6,13 +6,17 @@ package fixxit.homeboyz.tikiti.Utils;
 public class Event {
     private String title, image;
     private String date;
-    private int id;
+    public int id;
+    private String description;
+    private String location;
 
-    public Event(int id, String name, String date, String image, Object o, String university_name, String s, Object o1) {
+    public Event(int id, String name, String date, String image, String description, String location, String s, Object o1) {
         this.id = id;
         this.title = name;
         this.image = image;
         this.date = date;
+        this.description = description;
+        this.location = location;
     }
     public int getId() {
         return id;
@@ -46,4 +50,18 @@ public class Event {
         this.date = date;
     }
 
+
+    public String getDescription(){
+        return description;
+    }
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public String getLocation(){
+        return location;
+    }
+    public void setLocation(String location){
+        this.location = location;
+    }
 }
