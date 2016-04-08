@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import fixxit.homeboyz.tikiti.R;
 import fixxit.homeboyz.tikiti.Utils.Event;
@@ -62,6 +64,8 @@ public class CustomListAdapter extends BaseAdapter {
 
             viewHolder.txtUniName = (TextView) view.findViewById(R.id.eventtitle);
             viewHolder.txtUniDesc = (TextView) view.findViewById(R.id.eventdate);
+            viewHolder.txtlocation = (TextView) view.findViewById(R.id.loca);
+            viewHolder.txtdate = (TextView) view.findViewById(R.id.tvtime);
 
             viewHolder.txtUniId = (TextView) view.findViewById(R.id.uniId);
 
@@ -70,10 +74,18 @@ public class CustomListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+
+        Date dNow = new Date( );
+        SimpleDateFormat ft =
+                new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+
         Event model = listItems.get(position);
 //        System.out.println(model.getTitle());
         viewHolder.txtUniName.setText(model.getTitle());
         viewHolder.txtUniDesc.setText(model.getDescription());
+
+        viewHolder.txtlocation.setText(model.getLocation());
+        viewHolder.txtdate.setText(model.getDate());
         /// Trigger the download of the URL asynchronously into the image view.
         Picasso.with(mContext)
                 .load(model.getImage())
@@ -90,5 +102,7 @@ public class CustomListAdapter extends BaseAdapter {
         TextView txtUniDesc;
         TextView txtUniId;
         ImageView imgimage;
+        TextView txtlocation;
+        TextView txtdate;
     }
 }

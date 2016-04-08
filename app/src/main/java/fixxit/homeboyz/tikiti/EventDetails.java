@@ -72,14 +72,30 @@ public class EventDetails extends AppCompatActivity {
 
 
         txtdesc = (TextView) findViewById(R.id.desc);
-        //txtdesc.setText(getIntent().getExtras().getString("description"));
+        txtdesc.setText(getIntent().getExtras().getString("description"));
+
+        txtlocation = (TextView) findViewById(R.id.location);
+        txtlocation.setText(getIntent().getExtras().getString("eventLocation"));
+
+        txtdate = (TextView) findViewById(R.id.tvdate);
+        txtdate.setText(getIntent().getExtras().getString("eventStart"));
 
         //setting or parsing the image
-        /*imageView = (ImageView)findViewById(R.id.image);
-        byte[] byteArray = extras.getByteArray("imageUrl");
-        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-        imageView.setImageBitmap(bmp);*/
-       // imageView.setImageURI(Uri.parse(getIntent().getExtras().getString("imageUrl")));
+       imageView = (ImageView)findViewById(R.id.image);
+        if(getIntent().hasExtra("imageUrl")) {
+          // imageView = new ImageView(this);
+            Bitmap b = BitmapFactory.decodeByteArray(
+                    getIntent().getByteArrayExtra("imageUrl"),0,getIntent().getByteArrayExtra("imageUrl").length);
+            imageView.setImageBitmap(b);
+        }
+
+        btnbuy = (Button) findViewById(R.id.buttontct);
+        btnbuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),EventSubcategory.class));
+            }
+        });
         fetchDetails();
 
     }

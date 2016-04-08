@@ -31,8 +31,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Buy Now"
-        android:id="@+id/button"
+        android:text="Get Ticket"
+        android:id="@+id/buttontct"
         android:background="@color/colorPrimary"
         android:textColor="@android:color/white"
         android:layout_centerVertical="true"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#DADADC"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/buttontct"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -61,7 +61,38 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/desc"
+        android:textColor="@color/nliveo_black"
+        android:textStyle="italic"
         android:layout_below="@+id/evntDetailtitle"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Venue:"
+        android:id="@+id/tvvenue"
+        android:layout_below="@+id/desc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="61dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/location"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_alignTop="@+id/tvvenue"
+        android:layout_toRightOf="@+id/tvvenue"
+        android:layout_toEndOf="@+id/tvvenue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/tvvenue"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -69,10 +100,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/location"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button" />
+        android:id="@+id/tvdate"
+        android:layout_below="@+id/location"
+        android:layout_alignLeft="@+id/location"
+        android:layout_alignStart="@+id/location" />
 
 
 </RelativeLayout>
