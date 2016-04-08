@@ -1,5 +1,7 @@
 package fixxit.homeboyz.tikiti.Utils;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by homeboyz on 3/24/16.
  */

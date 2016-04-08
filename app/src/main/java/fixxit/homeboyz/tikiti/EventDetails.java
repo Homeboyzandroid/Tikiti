@@ -82,12 +82,9 @@ public class EventDetails extends AppCompatActivity {
 
         //setting or parsing the image
        imageView = (ImageView)findViewById(R.id.image);
-        if(getIntent().hasExtra("imageUrl")) {
-          // imageView = new ImageView(this);
-            Bitmap b = BitmapFactory.decodeByteArray(
-                    getIntent().getByteArrayExtra("imageUrl"),0,getIntent().getByteArrayExtra("imageUrl").length);
-            imageView.setImageBitmap(b);
-        }
+        Intent intent = getIntent();
+        Bitmap bitmap = (Bitmap) intent.getParcelableExtra("BitmapImage");
+        imageView.setImageBitmap(bitmap);
 
         btnbuy = (Button) findViewById(R.id.buttontct);
         btnbuy.setOnClickListener(new View.OnClickListener() {

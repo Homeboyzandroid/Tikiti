@@ -89,7 +89,8 @@ public class EventsFragment extends Fragment {
        lvevents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              Toast.makeText(getActivity(),""+unisList.get(position).getId(),Toast.LENGTH_SHORT).show();
+             // Toast.makeText(getActivity(),""+unisList.get(position).getId(),Toast.LENGTH_SHORT).show();
+
               Intent intent_more_details = new Intent(getActivity(), EventDetails.class);
               //intent_more_details.putExtra(MoreDetailsActivity.UNIVERSITY_ID, unisList.get(position).getId());
               String item = unisList.get(position).getTitle();
@@ -108,10 +109,12 @@ public class EventsFragment extends Fragment {
               intent_more_details.putExtra("eventStart",itemdate);
 
                  //passing image
+
+              intent_more_details.putExtra("imageUrl", image);
              ; // your bitmap
-              ByteArrayOutputStream bs = new ByteArrayOutputStream();
-              //b.compress(Bitmap.CompressFormat.JPEG, 50, bs);
-              intent_more_details.putExtra("imageUrl", bs.toByteArray());
+            /*  ByteArrayOutputStream bs = new ByteArrayOutputStream();
+//              b.compress(Bitmap.CompressFormat.JPEG, 50, bs);
+              intent_more_details.putExtra("imageUrl", bs.toByteArray());*/
 
               startActivity(intent_more_details);
 
@@ -234,6 +237,5 @@ public class EventsFragment extends Fragment {
     }
 
     ///“There is nothing quite so useless as doing with great efficiency something that should not be done at all.”
-
 
 }
