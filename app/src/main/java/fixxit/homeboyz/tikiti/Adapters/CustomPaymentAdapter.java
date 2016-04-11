@@ -19,14 +19,14 @@ import fixxit.homeboyz.tikiti.R;
 import fixxit.homeboyz.tikiti.Utils.Event;
 
 /**
- * Created by homeboyz on 3/31/16.
+ * Created by homeboyz on 4/11/16.
  */
-public class CustomListAdapter extends BaseAdapter {
+public class CustomPaymentAdapter extends BaseAdapter {
     private ArrayList<Event> listItems;
     private Context mContext;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
-    public CustomListAdapter(Context context, ArrayList<Event> items) {
+    public CustomPaymentAdapter(Context context, ArrayList<Event> items) {
         this.mContext = context;
         this.listItems = items;
 

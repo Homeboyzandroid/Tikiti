@@ -1,9 +1,12 @@
 package fixxit.homeboyz.tikiti;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,15 +23,20 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import fixxit.homeboyz.tikiti.Adapters.AppController;
-
+import fixxit.homeboyz.tikiti.Utils.Event;
 
 
 public class EventDetails extends AppCompatActivity {
@@ -42,13 +50,15 @@ public class EventDetails extends AppCompatActivity {
     private Bundle extras;
     private ProgressDialog mProgress;
     private String tag_json_obj = "request_single_uni_details";// Tag used to cancel the request
-
     private int eventid;
     private String eventname;
+    public String image;
+    public String jsonValue;
 
     private TextView txttitle, txtdesc, txtlocation, txtdate, txtLng;
     private Button btnbuy;
     ImageView imageView;
+    private ArrayList<Event> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,20 +67,41 @@ public class EventDetails extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        Intent intent= getIntent();
         txttitle = (TextView) findViewById(R.id.evntDetailtitle);
         txttitle.setText(getIntent().getExtras().getString("eventName"));
 
 
         txtdesc = (TextView) findViewById(R.id.desc);
-        //txtdesc.setText(getIntent().getExtras().getString("description"));
+        txtdesc.setText(getIntent().getExtras().getString("description"));
 
-        //setting or parsing the image
-        /*imageView = (ImageView)findViewById(R.id.image);
-        byte[] byteArray = extras.getByteArray("imageUrl");
-        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-        imageView.setImageBitmap(bmp);*/
-       // imageView.setImageURI(Uri.parse(getIntent().getExtras().getString("imageUrl")));
+        txtlocation = (TextView) findViewById(R.id.location);
+        txtlocation.setText(getIntent().getExtras().getString("eventLocation"));
+
+        txtdate = (TextView) findViewById(R.id.tvdate);
+        txtdate.setText(getIntent().getExtras().getString("eventStart"));
+
+
+        //String timestamp = jsonValue.split("\\(")[1].split("\\+")[0];
+        Date createdOn = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM dd yyyy");
+        String formattedDate = sdf.format(createdOn);
+
+
+        imageView = (ImageView)findViewById(R.id.image);
+        image= String.valueOf(intent.getStringExtra("imageUrl"));
+        Log.d("LOG_TAG", image);
+        Picasso.with(this)
+                .load(image)
+                .into(imageView);
+
+        btnbuy = (Button) findViewById(R.id.buttontct);
+        btnbuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),EventSubcategory.class));
+            }
+        });
         fetchDetails();
 
     }

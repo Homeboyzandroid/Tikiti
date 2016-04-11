@@ -1,5 +1,7 @@
 package fixxit.homeboyz.tikiti.Utils;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by homeboyz on 3/24/16.
  */
@@ -9,14 +11,18 @@ public class Event {
     public int id;
     private String description;
     private String location;
+    private String catName;
+    private String mpesaacc;
 
-    public Event(int id, String name, String description, String image, String date , String location, String s, Object o1) {
+    public Event(int id, String name, String description, String image, String location , String date, String catName, String mpesaacc) {
         this.id = id;
         this.title = name;
         this.image = image;
         this.date = date;
         this.description = description;
         this.location = location;
+        this.mpesaacc = mpesaacc;
+        this.catName = catName;
     }
     public int getId() {
         return id;
@@ -63,5 +69,19 @@ public class Event {
     }
     public void setLocation(String location){
         this.location = location;
+    }
+
+    public String getCatName(){
+        return catName;
+    }
+    public void setCatName(String catName){
+        this.catName = catName;
+    }
+
+    public String getMpesaacc(){
+        return mpesaacc;
+    }
+    public void setMpesaacc(String mpesaacc){
+        this.mpesaacc = mpesaacc;
     }
 }

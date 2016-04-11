@@ -30,7 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +63,8 @@ public class EventsFragment extends Fragment {
     public static final String Event_ID = "event_id";
     public static final String Event_ID = "event_id";*/
 
+    Bitmap b;
+
     private ListView lvevents;
     //    private String universitiesUrl = "http://10.0.2.2/php_tizzi/php_list_db_example/universities.php";
     private String eventsUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getAllActiveEvents";
@@ -70,6 +74,7 @@ public class EventsFragment extends Fragment {
     private ArrayList<Event> unisList = new ArrayList<Event>();
 
     private ProgressDialog mProgress;
+    public String jsonValue;
 
     String title;
     String location;
@@ -85,26 +90,42 @@ public class EventsFragment extends Fragment {
        lvevents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              Toast.makeText(getActivity(),""+unisList.get(position).getId(),Toast.LENGTH_SHORT).show();
+             // Toast.makeText(getActivity(),""+unisList.get(position).getId(),Toast.LENGTH_SHORT).show();
+
               Intent intent_more_details = new Intent(getActivity(), EventDetails.class);
               //intent_more_details.putExtra(MoreDetailsActivity.UNIVERSITY_ID, unisList.get(position).getId());
               String item = unisList.get(position).getTitle();
               String image = unisList.get(position).getImage();
-              String itemdate = unisList.get(position).getDate();
               String itemdec = unisList.get(position).getDescription();
               intent_more_details.putExtra("eventName", item);
 
-              intent_more_details.putExtra("eventStart", itemdate);
-              intent_more_details.putExtra("description",itemdec);
+              intent_more_details.putExtra("description", itemdec);
+
+              //passing location
+              String itemlocation   = unisList.get(position).getLocation();
+              intent_more_details.putExtra("eventLocation",itemlocation);
+
+              //passing date to the other activity
+              String itemdate = unisList.get(position).getDate();
+              intent_more_details.putExtra("eventStart",itemdate);
+
+                 //passing image
+
+              intent_more_details.putExtra("imageUrl", image);
+
+
               startActivity(intent_more_details);
 
-            /*  //passing image
-              Bitmap bitmap = BitmapFactory.decodeResource(getResources(),0);
-              ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-              bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-              intent_more_details.putExtra("imageUrl",bytes.toByteArray());*/
+
           }
        });
+     //   String timestamp = jsonValue.split("\\(")[1].split("\\+")[0];
+        Date createdOn = new Date();
+        final SimpleDateFormat ft = new SimpleDateFormat ("MM dd yyyy");
+       // String formattedDate = ft.format(createdOn);
+
+        /*SimpleDateFormat sdf = new SimpleDateFormat("MM dd yyyy");
+        String formattedDate = sdf.format(createdOn);*/
 
 
         showProgress();
@@ -124,9 +145,11 @@ public class EventsFragment extends Fragment {
                             String event_name = unisItem.getString("eventName");
                             String description = unisItem.getString("description");
                             String image = unisItem.getString("imageUrl");
-                            //String desc = unisItem.getString("description");
+                            String location = unisItem.getString("eventLocation");
 
-                            Event universitiesModel = new Event(id, event_name,description, image, null, null, null, null);
+                            String date = unisItem.getString("eventStart");
+
+                            Event universitiesModel = new Event(id, event_name,description, image, location, date, null, null);
                             unisList.add(universitiesModel);
 
                             addToAdapter();
@@ -215,6 +238,6 @@ public class EventsFragment extends Fragment {
         mProgress.cancel();
     }
 
-
+    ///“There is nothing quite so useless as doing with great efficiency something that should not be done at all.”
 
 }
