@@ -73,7 +73,7 @@ public class CustomListAdapter extends BaseAdapter {
         Event model = listItems.get(position);
 //        System.out.println(model.getTitle());
         viewHolder.txtUniName.setText(model.getTitle());
-        viewHolder.txtUniDesc.setText(model.getDate());
+        viewHolder.txtUniDesc.setText(model.getDescription());
         /// Trigger the download of the URL asynchronously into the image view.
         Picasso.with(mContext)
                 .load(model.getImage())

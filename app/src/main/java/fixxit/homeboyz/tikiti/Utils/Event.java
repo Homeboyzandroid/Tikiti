@@ -10,7 +10,7 @@ public class Event {
     private String description;
     private String location;
 
-    public Event(int id, String name, String date, String image, String description, String location, String s, Object o1) {
+    public Event(int id, String name, String description, String image, String date , String location, String s, Object o1) {
         this.id = id;
         this.title = name;
         this.image = image;

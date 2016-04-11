@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/title"
+        android:id="@+id/evntDetailtitle"
         android:layout_below="@+id/divider"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/desc"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/evntDetailtitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

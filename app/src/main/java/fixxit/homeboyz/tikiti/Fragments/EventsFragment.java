@@ -2,6 +2,8 @@ package fixxit.homeboyz.tikiti.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,15 +85,26 @@ public class EventsFragment extends Fragment {
        lvevents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              Toast.makeText(getActivity(),""+unisList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+              Toast.makeText(getActivity(),""+unisList.get(position).getId(),Toast.LENGTH_SHORT).show();
+              Intent intent_more_details = new Intent(getActivity(), EventDetails.class);
+              //intent_more_details.putExtra(MoreDetailsActivity.UNIVERSITY_ID, unisList.get(position).getId());
+              String item = unisList.get(position).getTitle();
+              String image = unisList.get(position).getImage();
+              String itemdate = unisList.get(position).getDate();
+              String itemdec = unisList.get(position).getDescription();
+              intent_more_details.putExtra("eventName", item);
 
-                Intent intent_more_details = new Intent(getActivity(), EventDetails.class);
+              intent_more_details.putExtra("eventStart", itemdate);
+              intent_more_details.putExtra("description",itemdec);
+              startActivity(intent_more_details);
 
-                intent_more_details.putExtra(EventDetails.Event_ID, unisList.get(position).getId());
-             // intent_more_details.putExtra(EventDetails.event_name, unisList.get(position).getTitle());
-                startActivity(intent_more_details);
-            }
-        });
+            /*  //passing image
+              Bitmap bitmap = BitmapFactory.decodeResource(getResources(),0);
+              ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+              bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+              intent_more_details.putExtra("imageUrl",bytes.toByteArray());*/
+          }
+       });
 
 
         showProgress();
@@ -108,10 +122,11 @@ public class EventsFragment extends Fragment {
 
                             int id = unisItem.getInt("eventId");
                             String event_name = unisItem.getString("eventName");
-                            String date = unisItem.getString("eventStart");
+                            String description = unisItem.getString("description");
                             String image = unisItem.getString("imageUrl");
+                            //String desc = unisItem.getString("description");
 
-                            Event universitiesModel = new Event(id, event_name,date, image, null, null, null, null);
+                            Event universitiesModel = new Event(id, event_name,description, image, null, null, null, null);
                             unisList.add(universitiesModel);
 
                             addToAdapter();
