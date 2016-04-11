@@ -27,12 +27,14 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,10 +56,12 @@ public class EventDetails extends AppCompatActivity {
 
     private int eventid;
     private String eventname;
+    public String image;
 
     private TextView txttitle, txtdesc, txtlocation, txtdate, txtLng;
     private Button btnbuy;
     ImageView imageView;
+    private ArrayList<Event> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +70,7 @@ public class EventDetails extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        Intent intent= getIntent();
         txttitle = (TextView) findViewById(R.id.evntDetailtitle);
         txttitle.setText(getIntent().getExtras().getString("eventName"));
 
@@ -80,11 +84,12 @@ public class EventDetails extends AppCompatActivity {
         txtdate = (TextView) findViewById(R.id.tvdate);
         txtdate.setText(getIntent().getExtras().getString("eventStart"));
 
-        //setting or parsing the image
-       imageView = (ImageView)findViewById(R.id.image);
-        Intent intent = getIntent();
-        Bitmap bitmap = (Bitmap) intent.getParcelableExtra("BitmapImage");
-        imageView.setImageBitmap(bitmap);
+        imageView = (ImageView)findViewById(R.id.image);
+        image= String.valueOf(intent.getStringExtra("imageUrl"));
+        Log.d("LOG_TAG",image);
+        Picasso.with(this)
+                .load(image)
+                .into(imageView);
 
         btnbuy = (Button) findViewById(R.id.buttontct);
         btnbuy.setOnClickListener(new View.OnClickListener() {

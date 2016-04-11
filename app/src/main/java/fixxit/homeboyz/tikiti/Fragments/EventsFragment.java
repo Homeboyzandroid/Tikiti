@@ -111,10 +111,7 @@ public class EventsFragment extends Fragment {
                  //passing image
 
               intent_more_details.putExtra("imageUrl", image);
-             ; // your bitmap
-            /*  ByteArrayOutputStream bs = new ByteArrayOutputStream();
-//              b.compress(Bitmap.CompressFormat.JPEG, 50, bs);
-              intent_more_details.putExtra("imageUrl", bs.toByteArray());*/
+
 
               startActivity(intent_more_details);
 
