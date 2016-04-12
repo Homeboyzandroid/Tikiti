@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import fixxit.homeboyz.tikiti.Adapters.AppController;
@@ -106,7 +107,11 @@ public class EventsFragment extends Fragment {
               intent_more_details.putExtra("eventLocation",itemlocation);
 
               //passing date to the other activity
-              String itemdate = unisList.get(position).getDate();
+              String itemdate = unisList.get(position).getDate().split("T")[0];
+              Date createdOn = new Date();
+              final SimpleDateFormat ft = new SimpleDateFormat ("MM dd yyyy", Locale.US);
+              String formattedDate = ft.format(createdOn);
+
               intent_more_details.putExtra("eventStart",itemdate);
 
                  //passing image
@@ -120,8 +125,8 @@ public class EventsFragment extends Fragment {
           }
        });
      //   String timestamp = jsonValue.split("\\(")[1].split("\\+")[0];
-        Date createdOn = new Date();
-        final SimpleDateFormat ft = new SimpleDateFormat ("MM dd yyyy");
+        //Date createdOn = new Date();
+        //final SimpleDateFormat ft = new SimpleDateFormat ("MM dd yyyy");
        // String formattedDate = ft.format(createdOn);
 
         /*SimpleDateFormat sdf = new SimpleDateFormat("MM dd yyyy");
@@ -147,7 +152,7 @@ public class EventsFragment extends Fragment {
                             String image = unisItem.getString("imageUrl");
                             String location = unisItem.getString("eventLocation");
 
-                            String date = unisItem.getString("eventStart");
+                            String date = unisItem.getString("eventStart").split("T")[0];
 
                             Event universitiesModel = new Event(id, event_name,description, image, location, date, null, null);
                             unisList.add(universitiesModel);

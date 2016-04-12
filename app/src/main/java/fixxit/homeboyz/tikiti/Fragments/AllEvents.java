@@ -46,7 +46,7 @@ public class AllEvents extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.content_main, container, false);
         listView  = (ListView)v.findViewById(R.id.list);
-       // adapter = new CustomListAdapter(getActivity(),eventlist);
+       //adapter = new CustomListAdapter(getActivity(),eventlist);
         listView.setAdapter(adapter);
 
         pDialog = new ProgressDialog(getActivity());
