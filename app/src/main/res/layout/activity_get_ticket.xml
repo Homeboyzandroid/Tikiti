@@ -1,16 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="fixxit.homeboyz.tikiti.GetTicket">
-
-    <WebView
+    android:paddingTop="@dimen/activity_vertical_margin">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webView" />
-</RelativeLayout>
+        android:layout_height="600dp"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="fixxit.homeboyz.tikiti.EventDetails">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/image"
+            android:src="@mipmap/ic_launcher"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="47dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="catname"
+            android:id="@+id/catname"
+            android:layout_below="@+id/image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="::Tickets"
+            android:id="@+id/tvtivkets"
+            android:layout_alignTop="@+id/catname"
+            android:layout_toRightOf="@+id/catname"
+            android:layout_toEndOf="@+id/catname" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tveventname"
+            android:id="@+id/tveventname"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/image"
+            android:layout_alignEnd="@+id/image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/tvdescription"
+            android:layout_below="@+id/catname"
+            android:layout_alignLeft="@+id/catname"
+            android:layout_alignStart="@+id/catname" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:id="@+id/showlocation"
+            android:layout_below="@+id/tvdescription"
+            android:layout_alignLeft="@+id/tvdescription"
+            android:layout_alignStart="@+id/tvdescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/tvloc"
+            android:layout_below="@+id/tvdescription"
+            android:layout_toLeftOf="@+id/image"
+            android:layout_toStartOf="@+id/image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:id="@+id/showtime"
+            android:layout_below="@+id/showlocation"
+            android:layout_alignLeft="@+id/showlocation"
+            android:layout_alignStart="@+id/showlocation" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/tvtime"
+            android:layout_below="@+id/tvloc"
+            android:layout_alignLeft="@+id/tvloc"
+            android:layout_alignStart="@+id/tvloc" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Your Ticket Today"
+            android:id="@+id/btgetticket"
+            android:layout_below="@+id/tvtime"
+            android:layout_toRightOf="@+id/showlocation"
+            android:layout_marginTop="22dp" />
+
+    </RelativeLayout>
+</ScrollView>

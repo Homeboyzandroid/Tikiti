@@ -22,11 +22,13 @@ import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -49,6 +51,8 @@ public class EventDetails extends AppCompatActivity {
     public static final String event_name = "event_name";
     private String requestUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getAllActiveEvents";
 
+    private ArrayList<Event> unisList = new ArrayList<Event>();
+
     private WebView webView;
     private Bundle extras;
     private ProgressDialog mProgress;
@@ -58,7 +62,12 @@ public class EventDetails extends AppCompatActivity {
     private String eventname;
     public String image;
 
-    private TextView txttitle, txtdesc, txtlocation, txtdate, txtLng;
+    RequestQueue requestQueue;
+    String data = "";
+    String dataId = "";
+    String mpesaid = "";
+
+    private TextView txttitle, txtdesc, txtlocation, txtdate, txtLng, tvticket,tvid,tvmpesa;
     private Button btnbuy;
     ImageView imageView;
     private ArrayList<Event> listItems;
@@ -70,10 +79,16 @@ public class EventDetails extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent intent= getIntent();
+
+        //the textviews to pass  parameters
+        tvid = (TextView)findViewById(R.id.tvid);
+        tvticket = (TextView) findViewById(R.id.ticket);
+        tvmpesa = (TextView)findViewById(R.id.tvmpesaid);
+
+        //all the intent pass activities are done here
+        final Intent intent= getIntent();
         txttitle = (TextView) findViewById(R.id.evntDetailtitle);
         txttitle.setText(getIntent().getExtras().getString("eventName"));
-
 
         txtdesc = (TextView) findViewById(R.id.desc);
         txtdesc.setText(getIntent().getExtras().getString("description"));
@@ -95,107 +110,70 @@ public class EventDetails extends AppCompatActivity {
         btnbuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),EventSubcategory.class));
+
+                //starting the intent for payments
+                Intent intent_more_details = new Intent(getApplicationContext(), TicketPayInfo.class);
+                //int id;
+                int x= eventid;
+                intent_more_details.putExtra("categoryId",x);
+
+                startActivity(new Intent(getApplicationContext(),TicketPayInfo.class));
             }
         });
-        fetchDetails();
 
-    }
+        //this is where am passing my id and getting the url/id
+        extras = getIntent().getExtras();
+        if (extras != null) {
+            eventid = extras.getInt(String.valueOf(eventid));
+        }
 
+        //tveventname = (TextView) findViewById(R.id.tvname);
+        String requestUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getEventTicketCategories/" +Integer.toString(extras.getInt("eventId")) ;
 
-    private void fetchDetails() {
-        showProgress();
+        if(savedInstanceState!=null){
+            Log.d("STATE", savedInstanceState.toString());
+        }
 
-
-        Uri.Builder builder = Uri.parse(requestUrl).buildUpon();
-        builder.appendQueryParameter("event_id", Integer.toString(eventid));
-
-        // http://testing.mlab-training.devs.mobi/php_list_db_example/universityinfo.php?university_id=2
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, builder.toString(), new Response.Listener<JSONObject>() {
-
+        requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET,requestUrl, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                if (response.length() > 0) {//checking if response is null
-                    try {
-                        JSONArray unisArray = response.getJSONArray("eventsList");
-                        System.err.println(unisArray);
-                        for (int i = 0; i < unisArray.length(); i++) {
-                            JSONObject unisItem = unisArray.getJSONObject(i);
 
-                            txtdesc.setText(response.getString("description"));
+                try{
 
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    JSONArray ja = response.getJSONArray("ticketCategories");
+
+                    for(int i=0; i < ja.length(); i++){
+
+                        JSONObject jsonObject = ja.getJSONObject(i);
+
+                         int id = Integer.parseInt(jsonObject.optString("categoryId").toString());
+                        String title = jsonObject.getString("categoryName");
+                        String mpesa = jsonObject.getString("mpesaAcc");
+
+                        data += "It's:"+title ;
+                        dataId +=  id ;
+                        mpesaid = mpesa;
+
+
                     }
-                    stopProgress();
-                }
+
+                    tvticket.setText(data);
+                    tvid.setText(dataId);
+                    tvmpesa.setText(mpesaid);
+                }catch(JSONException e){e.printStackTrace();}
             }
-        }, new Response.ErrorListener() {
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley","Error");
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error instanceof NetworkError) {
-                    try {
-                        Toast.makeText(getApplicationContext(),
-                                "Network Error. Try Again Later",
-                                Toast.LENGTH_SHORT).show();
-                    } catch (NullPointerException npe) {
-                        System.err.println(npe);
-                    }
-                } else if (error instanceof ServerError) {
-                    try {
-                        Toast.makeText(
-                                getApplicationContext(),
-                                "Problem Connecting to Server. Try Again Later",
-                                Toast.LENGTH_SHORT).show();
-                    } catch (NullPointerException npe) {
-                        System.err.println(npe);
-                    }
-                } else if (error instanceof AuthFailureError) {
-                } else if (error instanceof ParseError) {
-                } else if (error instanceof NoConnectionError) {
-                    try {
-                        Toast.makeText(getApplicationContext(),
-                                "No Connection", Toast.LENGTH_SHORT).show();
-                    } catch (NullPointerException npe) {
-                        System.err.println(npe);
-                    }
-                } else if (error instanceof TimeoutError) {
-                    try {
-                        Toast.makeText(
-                                getApplicationContext().getApplicationContext(),
-                                "Timeout Error. Try Again Later",
-                                Toast.LENGTH_SHORT).show();
-                    } catch (NullPointerException npe) {
-                        System.err.println(npe);
                     }
                 }
-
-                stopProgress();
-
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Accept", "application/json");
-                return params;
-            }
-        };
+        );
+        requestQueue.add(jor);
 
 
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(jsonObjReq,
-                tag_json_obj);
-    }
-
-    private void showProgress() {
-        mProgress = ProgressDialog.show(EventDetails.this, "Please Wait",
-                "Accessing server...");
-    }
-
-    private void stopProgress() {
-        mProgress.cancel();
     }
 }

@@ -25,7 +25,8 @@
         <activity android:name=".EventDetails" />
         <activity android:name=".SplashActivity" />
         <activity android:name=".EventSubcategory" />
-        <activity android:name=".GetTicket"></activity>
+        <activity android:name=".GetTicket" />
+        <activity android:name=".TicketPayInfo"></activity>
     </application>
 
 </manifest>

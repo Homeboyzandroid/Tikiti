@@ -93,6 +93,8 @@ public class EventsFragment extends Fragment {
 
               Intent intent_more_details = new Intent(getActivity(), EventDetails.class);
               //intent_more_details.putExtra(MoreDetailsActivity.UNIVERSITY_ID, unisList.get(position).getId());
+              int itemid = unisList.get(position).getId();
+              intent_more_details.putExtra("eventId", itemid);
               String item = unisList.get(position).getTitle();
               String image = unisList.get(position).getImage();
               String itemdec = unisList.get(position).getDescription();

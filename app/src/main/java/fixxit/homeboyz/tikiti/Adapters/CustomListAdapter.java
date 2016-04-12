@@ -66,8 +66,9 @@ public class CustomListAdapter extends BaseAdapter {
             viewHolder.txtUniDesc = (TextView) view.findViewById(R.id.eventdate);
             viewHolder.txtlocation = (TextView) view.findViewById(R.id.loca);
             viewHolder.txtdate = (TextView) view.findViewById(R.id.tvtime);
+            viewHolder.tvid = (TextView)view.findViewById(R.id.textView3);
 
-            viewHolder.txtUniId = (TextView) view.findViewById(R.id.uniId);
+            //viewHolder.txtUniId = (TextView) view.findViewById(R.id.uniId);
 
             view.setTag(viewHolder);
         } else {
@@ -81,6 +82,7 @@ public class CustomListAdapter extends BaseAdapter {
 
         Event model = listItems.get(position);
 //        System.out.println(model.getTitle());
+        viewHolder.tvid.setText(Integer.toString(model.getId()));
         viewHolder.txtUniName.setText(model.getTitle());
         viewHolder.txtUniDesc.setText(model.getDescription());
 
@@ -91,7 +93,7 @@ public class CustomListAdapter extends BaseAdapter {
                 .load(model.getImage())
                 .into(viewHolder.imgimage);
 
-        viewHolder.txtUniId.setText(Integer.toString(model.getId()));
+        //viewHolder.txtUniId.setText(Integer.toString(model.getId()));
 
 
         return view;
@@ -104,5 +106,6 @@ public class CustomListAdapter extends BaseAdapter {
         ImageView imgimage;
         TextView txtlocation;
         TextView txtdate;
+        TextView tvid;
     }
 }
