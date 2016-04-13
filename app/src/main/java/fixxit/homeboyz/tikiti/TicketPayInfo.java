@@ -17,6 +17,8 @@ public class TicketPayInfo extends AppCompatActivity {
         final Intent intent= getIntent();
         tvmpesaid = (TextView)findViewById(R.id.tvbsno);
         tvpayid = (TextView)findViewById(R.id.tvpayid);
-       // tvpayid.setText(getIntent().getExtras().getInt("categoryId"));
+        tvmpesaid.setText(getIntent().getStringExtra("mpesaAcc"));
+
+
     }
 }

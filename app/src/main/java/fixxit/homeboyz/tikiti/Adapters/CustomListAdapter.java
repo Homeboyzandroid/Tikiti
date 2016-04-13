@@ -78,7 +78,8 @@ public class CustomListAdapter extends BaseAdapter {
 
         Date dNow = new Date( );
         SimpleDateFormat ft =
-                new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+                new SimpleDateFormat("MM dd yyyy");
+        String formattedDate = ft.format(dNow);
 
         Event model = listItems.get(position);
 //        System.out.println(model.getTitle());

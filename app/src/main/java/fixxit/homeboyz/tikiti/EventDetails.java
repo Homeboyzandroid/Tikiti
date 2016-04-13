@@ -2,15 +2,11 @@ package fixxit.homeboyz.tikiti;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,8 +31,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,15 +54,17 @@ public class EventDetails extends AppCompatActivity {
     private Bundle extras;
     private ProgressDialog mProgress;
     private String tag_json_obj = "request_single_uni_details";// Tag used to cancel the request
-
     private int eventid;
     private String eventname;
     public String image;
+    public String jsonValue;
 
     RequestQueue requestQueue;
     String data = "";
     String dataId = "";
     String mpesaid = "";
+
+
 
     private TextView txttitle, txtdesc, txtlocation, txtdate, txtLng, tvticket,tvid,tvmpesa;
     private Button btnbuy;
@@ -99,27 +98,21 @@ public class EventDetails extends AppCompatActivity {
         txtdate = (TextView) findViewById(R.id.tvdate);
         txtdate.setText(getIntent().getExtras().getString("eventStart"));
 
+
+        //String timestamp = jsonValue.split("\\(")[1].split("\\+")[0];
+        Date createdOn = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM dd yyyy");
+        String formattedDate = sdf.format(createdOn);
+
+
         imageView = (ImageView)findViewById(R.id.image);
         image= String.valueOf(intent.getStringExtra("imageUrl"));
-        Log.d("LOG_TAG",image);
+        Log.d("LOG_TAG", image);
         Picasso.with(this)
                 .load(image)
                 .into(imageView);
 
-        btnbuy = (Button) findViewById(R.id.buttontct);
-        btnbuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                //starting the intent for payments
-                Intent intent_more_details = new Intent(getApplicationContext(), TicketPayInfo.class);
-                //int id;
-                int x= eventid;
-                intent_more_details.putExtra("categoryId",x);
-
-                startActivity(new Intent(getApplicationContext(),TicketPayInfo.class));
-            }
-        });
 
         //this is where am passing my id and getting the url/id
         extras = getIntent().getExtras();
@@ -153,7 +146,7 @@ public class EventDetails extends AppCompatActivity {
 
                         data += "It's:"+title ;
                         dataId +=  id ;
-                        mpesaid = mpesa;
+                        mpesaid += mpesa;
 
 
                     }
@@ -175,5 +168,17 @@ public class EventDetails extends AppCompatActivity {
         requestQueue.add(jor);
 
 
+        btnbuy = (Button) findViewById(R.id.buttontct);
+        btnbuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //starting the intent for payments
+                Intent intent_more_details = new Intent(getApplicationContext(), TicketPayInfo.class);
+                intent_more_details.putExtra("mpesaAcc",  tvmpesa.getText().toString());
+
+                startActivity(new Intent(getApplicationContext(), TicketPayInfo.class));
+            }
+        });
     }
 }

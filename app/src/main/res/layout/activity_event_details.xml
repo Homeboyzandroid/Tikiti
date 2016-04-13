@@ -137,7 +137,6 @@
         android:layout_height="wrap_content"
         android:text="mpesa"
         android:id="@+id/tvmpesaid"
-        android:visibility="gone"
         android:layout_below="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2" />

@@ -74,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Amount to pay"
-        android:id="@+id/tvamount"
+        android:id="@+id/tvbsno"
         android:textColor="@color/nliveo_black"
         android:textSize="16dp"
         android:layout_below="@+id/editText"
@@ -88,7 +88,7 @@
         android:textColor="@color/nliveo_black"
         android:textSize="16dp"
         android:id="@+id/tvshowamount"
-        android:layout_alignTop="@+id/tvamount"
+        android:layout_alignTop="@+id/tvbsno"
         android:layout_toRightOf="@+id/tvticketNo"
         android:layout_toEndOf="@+id/tvticketNo" />
 

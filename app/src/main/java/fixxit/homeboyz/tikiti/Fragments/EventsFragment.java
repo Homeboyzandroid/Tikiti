@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import fixxit.homeboyz.tikiti.Adapters.AppController;
@@ -74,6 +75,7 @@ public class EventsFragment extends Fragment {
     private ArrayList<Event> unisList = new ArrayList<Event>();
 
     private ProgressDialog mProgress;
+    public String jsonValue;
 
     String title;
     String location;
@@ -100,14 +102,18 @@ public class EventsFragment extends Fragment {
               String itemdec = unisList.get(position).getDescription();
               intent_more_details.putExtra("eventName", item);
 
-              intent_more_details.putExtra("description",itemdec);
+              intent_more_details.putExtra("description", itemdec);
 
               //passing location
               String itemlocation   = unisList.get(position).getLocation();
               intent_more_details.putExtra("eventLocation",itemlocation);
 
               //passing date to the other activity
-              String itemdate = unisList.get(position).getDate();
+              String itemdate = unisList.get(position).getDate().split("T")[0];
+              Date createdOn = new Date();
+              final SimpleDateFormat ft = new SimpleDateFormat ("MM dd yyyy", Locale.US);
+              String formattedDate = ft.format(createdOn);
+
               intent_more_details.putExtra("eventStart",itemdate);
 
                  //passing image
@@ -120,9 +126,6 @@ public class EventsFragment extends Fragment {
 
           }
        });
-
-        final SimpleDateFormat ft =
-                new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
 
 
         showProgress();
@@ -144,7 +147,7 @@ public class EventsFragment extends Fragment {
                             String image = unisItem.getString("imageUrl");
                             String location = unisItem.getString("eventLocation");
 
-                            String date = unisItem.getString("eventStart");
+                            String date = unisItem.getString("eventStart").split("T")[0];
 
                             Event universitiesModel = new Event(id, event_name,description, image, location, date, null, null);
                             unisList.add(universitiesModel);

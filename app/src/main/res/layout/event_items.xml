@@ -4,20 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     android:background="#C6BEBE"
     android:foreground="?attr/selectableItemBackground"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
     <RelativeLayout
         android:layout_width="match_parent"
         android:gravity="center"
+        android:background="@color/nliveo_white"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/eventimage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:layout_marginRight="3sp"
             android:src="@mipmap/ic_launcher"
             android:layout_alignParentTop="true" />
 
@@ -26,9 +28,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Androidwarriors "
-            android:layout_marginLeft="100dp"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_below="@+id/uniId"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignLeft="@+id/tvtime"
+            android:layout_alignStart="@+id/tvtime" />
 
         <TextView
             android:id="@+id/eventdate"
@@ -38,12 +44,12 @@
             android:text="Place to dive into android programming"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="14sp"
-            android:layout_marginLeft="100dp"
             android:maxLines="1"
             android:maxLength="200"
             android:ellipsize="end"
-            android:layout_marginTop="70dp"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/eventtitle"
+            android:layout_alignStart="@+id/eventtitle" />
         <TextView
             android:id="@+id/uniId"
             android:layout_width="wrap_content"
@@ -56,8 +62,9 @@
             android:text="New Textz"
             android:id="@+id/loca"
             android:textColor="@color/nliveo_black"
-            android:layout_below="@+id/eventdate"
-            android:layout_centerHorizontal="true" />
+            android:layout_above="@+id/tvtime"
+            android:layout_toRightOf="@+id/eventimage"
+            android:layout_toEndOf="@+id/eventimage" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,9 +72,11 @@
             android:text="New Text"
             android:textColor="@color/nliveo_black"
             android:id="@+id/tvtime"
-            android:layout_below="@+id/eventdate"
-            android:layout_toRightOf="@+id/loca"
-            android:layout_toEndOf="@+id/loca" />
+            android:layout_alignBottom="@+id/eventimage"
+            android:layout_alignRight="@+id/loca"
+            android:layout_alignEnd="@+id/loca"
+            android:layout_toRightOf="@+id/eventimage"
+            android:layout_toEndOf="@+id/eventimage" />
 
         <TextView
             android:layout_width="wrap_content"
