@@ -7,6 +7,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:background="#C6BEBE"
+    android:elevation="4sp"
     android:foreground="?attr/selectableItemBackground"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
     <RelativeLayout
