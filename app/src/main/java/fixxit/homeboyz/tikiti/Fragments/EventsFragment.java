@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +50,8 @@ import fixxit.homeboyz.tikiti.Utils.Event;
  * Created by homeboyz on 3/31/16.
  */
 public class EventsFragment extends Fragment {
+  public  MaterialRefreshLayout materialRefreshLayout;
+
 
     private static final String TEXT_FRAGMENT = "TEXT_FRAGMENT";
 
@@ -86,6 +91,23 @@ public class EventsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main2,container, false);
 
+        final MaterialRefreshLayout materialRefreshLayout = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
+            materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+                @Override
+                public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
+                    //refreshing...
+                }
+
+                @Override
+                public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                    //load more refreshing...
+                }
+            });
+
+
+
+
+
         lvevents = (ListView)view.findViewById(R.id.lvevents);
 
        lvevents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,6 +144,8 @@ public class EventsFragment extends Fragment {
 
 
               startActivity(intent_more_details);
+
+
 
 
           }
@@ -218,6 +242,11 @@ public class EventsFragment extends Fragment {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonObjReq,
                 tag_json_obj);
+
+
+        materialRefreshLayout.finishRefresh();
+        // load more refresh complete
+        materialRefreshLayout.finishRefreshLoadMore();
         return view;
     }
 
@@ -236,6 +265,7 @@ public class EventsFragment extends Fragment {
 
     private void stopProgress() {
         mProgress.cancel();
+
     }
 
     ///“There is nothing quite so useless as doing with great efficiency something that should not be done at all.”
