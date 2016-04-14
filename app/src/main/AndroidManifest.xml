@@ -20,7 +20,8 @@
 
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".EventDetails" />
+        <activity android:name=".EventDetails"
+            android:label="Get Ticket"/>
         <activity android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
         <intent-filter>
@@ -32,7 +33,8 @@
 
         <activity android:name=".EventSubcategory" />
         <activity android:name=".GetTicket" />
-        <activity android:name=".TicketPayInfo"></activity>
+        <activity android:name=".TicketPayInfo"
+            android:label="Payment"></activity>
     </application>
 
 </manifest>

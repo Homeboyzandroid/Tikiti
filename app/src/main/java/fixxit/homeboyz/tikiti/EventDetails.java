@@ -120,7 +120,6 @@ public class EventDetails extends AppCompatActivity {
             eventid = extras.getInt(String.valueOf(eventid));
         }
 
-        //tveventname = (TextView) findViewById(R.id.tvname);
         String requestUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getEventTicketCategories/" +Integer.toString(extras.getInt("eventId")) ;
 
         if(savedInstanceState!=null){
@@ -174,10 +173,24 @@ public class EventDetails extends AppCompatActivity {
             public void onClick(View v) {
 
                 //starting the intent for payments
-                Intent intent_more_details = new Intent(getApplicationContext(), TicketPayInfo.class);
-                intent_more_details.putExtra("mpesaAcc",  tvmpesa.getText().toString());
+                Intent intent = new Intent(getApplicationContext(), TicketPayInfo.class);
+                // 2. put key/value data
+                intent.putExtra("mpesaAcc", mpesaid);
+                intent.putExtra("categoryId", dataId);
 
-                startActivity(new Intent(getApplicationContext(), TicketPayInfo.class));
+
+                // 3. or you can add data to a bundle
+                Bundle extras = new Bundle();
+                extras.putString("mpesaAcc", mpesaid);
+                extras.putString("categoryId", dataId);
+
+                // 4. add bundle to intent
+                intent.putExtras(extras);
+
+
+                //Toast.makeText(getApplicationContext(),"fuck you"+ mpesaid,Toast.LENGTH_SHORT).show();
+
+                startActivity(intent);
             }
         });
     }

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,8 +50,8 @@ import fixxit.homeboyz.tikiti.Utils.Event;
 /**
  * Created by homeboyz on 3/31/16.
  */
-public class EventsFragment extends Fragment {
-  public  MaterialRefreshLayout materialRefreshLayout;
+public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     private static final String TEXT_FRAGMENT = "TEXT_FRAGMENT";
@@ -89,70 +90,83 @@ public class EventsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main2,container, false);
-
-        final MaterialRefreshLayout materialRefreshLayout = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
-            materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
-                @Override
-                public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
-                    //refreshing...
-                }
-
-                @Override
-                public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
-                    //load more refreshing...
-                }
-            });
+        View view = inflater.inflate(R.layout.activity_main2, container, false);
 
 
+        lvevents = (ListView) view.findViewById(R.id.lvevents);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
 
 
+        swipeRefreshLayout.setOnRefreshListener(this);
 
-        lvevents = (ListView)view.findViewById(R.id.lvevents);
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+                                        fetchdata();
 
-       lvevents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-          @Override
+                                    }
+                                }
+        );
+
+        lvevents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-             // Toast.makeText(getActivity(),""+unisList.get(position).getId(),Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(),""+unisList.get(position).getId(),Toast.LENGTH_SHORT).show();
 
-              Intent intent_more_details = new Intent(getActivity(), EventDetails.class);
-              //intent_more_details.putExtra(MoreDetailsActivity.UNIVERSITY_ID, unisList.get(position).getId());
-              int itemid = unisList.get(position).getId();
-              intent_more_details.putExtra("eventId", itemid);
-              String item = unisList.get(position).getTitle();
-              String image = unisList.get(position).getImage();
-              String itemdec = unisList.get(position).getDescription();
-              intent_more_details.putExtra("eventName", item);
+                Intent intent_more_details = new Intent(getActivity(), EventDetails.class);
+                //intent_more_details.putExtra(MoreDetailsActivity.UNIVERSITY_ID, unisList.get(position).getId());
+                int itemid = unisList.get(position).getId();
+                intent_more_details.putExtra("eventId", itemid);
+                String item = unisList.get(position).getTitle();
+                String image = unisList.get(position).getImage();
+                String itemdec = unisList.get(position).getDescription();
+                intent_more_details.putExtra("eventName", item);
 
-              intent_more_details.putExtra("description", itemdec);
+                intent_more_details.putExtra("description", itemdec);
 
-              //passing location
-              String itemlocation   = unisList.get(position).getLocation();
-              intent_more_details.putExtra("eventLocation",itemlocation);
+                //passing location
+                String itemlocation = unisList.get(position).getLocation();
+                intent_more_details.putExtra("eventLocation", itemlocation);
 
-              //passing date to the other activity
-              String itemdate = unisList.get(position).getDate().split("T")[0];
-              Date createdOn = new Date();
-              final SimpleDateFormat ft = new SimpleDateFormat ("MM dd yyyy", Locale.US);
-              String formattedDate = ft.format(createdOn);
+                //passing date to the other activity
+                String itemdate = unisList.get(position).getDate().split("T")[0];
+                Date createdOn = new Date();
+                final SimpleDateFormat ft = new SimpleDateFormat("MM dd yyyy", Locale.US);
+                String formattedDate = ft.format(createdOn);
 
-              intent_more_details.putExtra("eventStart",itemdate);
+                intent_more_details.putExtra("eventStart", itemdate);
 
-                 //passing image
+                //passing image
 
-              intent_more_details.putExtra("imageUrl", image);
-
-
-              startActivity(intent_more_details);
+                intent_more_details.putExtra("imageUrl", image);
 
 
+                startActivity(intent_more_details);
 
 
-          }
-       });
+            }
+        });
 
 
-        showProgress();
+        return view;
+
+    }
+    /**
+     * This method is called when swipe refresh is pulled down
+     */
+    @Override
+    public void onRefresh() {
+        fetchdata();
+    }
+
+    private void fetchdata() {
+
+     //   showProgress();
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, eventsUrl, new Response.Listener<JSONObject>() {
 
@@ -183,7 +197,10 @@ public class EventsFragment extends Fragment {
                     }
                 }
 
-                stopProgress();
+///                stopProgress();
+
+                // stopping swipe refresh
+                swipeRefreshLayout.setRefreshing(false);
             }
         }, new Response.ErrorListener() {
 
@@ -226,7 +243,8 @@ public class EventsFragment extends Fragment {
                     }
                 }
 
-                stopProgress();
+                //stopProgress();
+                swipeRefreshLayout.setRefreshing(false);
 
             }
         }) {
@@ -243,12 +261,10 @@ public class EventsFragment extends Fragment {
         AppController.getInstance().addToRequestQueue(jsonObjReq,
                 tag_json_obj);
 
-
-        materialRefreshLayout.finishRefresh();
-        // load more refresh complete
-        materialRefreshLayout.finishRefreshLoadMore();
-        return view;
     }
+
+
+
 
     private void addToAdapter() {
         adapter = new CustomListAdapter(getActivity(), unisList);
@@ -258,15 +274,15 @@ public class EventsFragment extends Fragment {
     }
 
 
-    private void showProgress() {
+   /* private void showProgress() {
         mProgress = ProgressDialog.show(getActivity(), "Please Wait",
                 "Accessing server...");
-    }
+    }*/
 
-    private void stopProgress() {
+  /*  private void stopProgress() {
         mProgress.cancel();
 
-    }
+    }*/
 
     ///“There is nothing quite so useless as doing with great efficiency something that should not be done at all.”
 

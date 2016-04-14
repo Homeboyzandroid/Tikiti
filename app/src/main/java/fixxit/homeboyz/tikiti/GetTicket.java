@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,7 +32,9 @@ public class GetTicket extends AppCompatActivity {
     private Bundle extras;
 
     RequestQueue requestQueue;
-    String data = "";
+    String mpesaAccId = "";
+    String amountId = "";
+    String mpesaid = "";
 
 
     private TextView txttitle, txtdesc, txtlocation, txtdate, txtLng, tvcatname,tvid;
@@ -46,71 +49,58 @@ public class GetTicket extends AppCompatActivity {
         setContentView(R.layout.activity_get_ticket);
 
 
-        Intent intent= getIntent();
-        extras = getIntent().getExtras();
-        tvid = (TextView)findViewById(R.id.tvid);
-       // tvid.setText(Integer.toString(extras.getInt("eventId")));
-
+        tvid = (TextView) findViewById(R.id.tvid);
         txttitle = (TextView) findViewById(R.id.tveventname);
-        txttitle.setText(getIntent().getExtras().getString("eventName"));
         tvcatname = (TextView) findViewById(R.id.catname);
 
         txtdesc = (TextView) findViewById(R.id.tvdescription);
-        txtdesc.setText(getIntent().getExtras().getString("description"));
 
         txtlocation = (TextView) findViewById(R.id.tvloc);
-        txtlocation.setText(getIntent().getExtras().getString("eventLocation"));
 
-        txtdate = (TextView) findViewById(R.id.tvtime);
-        txtdate.setText(getIntent().getExtras().getString("eventStart"));
 
-        imageView = (ImageView)findViewById(R.id.image);
-        image= String.valueOf(intent.getStringExtra("imageUrl"));
-        Log.d("LOG_TAG",image);
-        Picasso.with(this)
-                .load(image)
-                .into(imageView);
+        //call or rather pasing jsoon to the textviews
+        String requestUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getEventTicketSubCategories/25";
 
-        btnbuy = (Button) findViewById(R.id.buttontct);
-
-        if (extras != null) {
-            eventid = extras.getInt(String.valueOf(eventid));
-        }
-
-        //tveventname = (TextView) findViewById(R.id.tvname);
-     String requestUrl = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getEventTicketCategories/" +Integer.toString(extras.getInt("eventId")) ;
-
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             Log.d("STATE", savedInstanceState.toString());
         }
 
         requestQueue = Volley.newRequestQueue(this);
-        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET,requestUrl, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, requestUrl, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
-                try{
+                try {
 
-                    JSONArray ja = response.getJSONArray("ticketCategories");
+                    JSONArray ja = response.getJSONArray("ticketSubCategories");
 
-                    for(int i=0; i < ja.length(); i++){
+                    for (int i = 0; i < ja.length(); i++) {
 
                         JSONObject jsonObject = ja.getJSONObject(i);
 
-                        // int id = Integer.parseInt(jsonObject.optString("id").toString());
-                        String title = jsonObject.getString("categoryName");
+                        // int id = Integer.parseInt(jsonObject.optString("categoryId").toString());
+                        String title = jsonObject.getString("ticketMpesaAcc");
+                        String mpesa = jsonObject.getString("ticketAmount");
 
-                        data += "  Event is:: "+title ;
+                        mpesaAccId += "It's:" + title;
+                        amountId += mpesa;
+                        //  mpesaid += mpesa;
+
+
                     }
 
-                    tvcatname.setText(data);
-                }catch(JSONException e){e.printStackTrace();}
+                    txttitle.setText(mpesaAccId);
+                    tvcatname.setText(amountId);
+                    //tvmpesa.setText(mpesaid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley","Error");
+                        Log.e("Volley", "Error");
 
                     }
                 }
