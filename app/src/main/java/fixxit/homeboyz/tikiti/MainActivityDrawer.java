@@ -33,7 +33,7 @@ public class MainActivityDrawer extends NavigationLiveo implements OnItemClickLi
             with(this) // default theme is dark
                     .startingPosition(0) //Starting position in the list
                     .addAllHelpItem(mHelpLiveo.getHelp())
-                    .footerItem(R.string.setting, R.mipmap.ic_launcher)
+                  //  .footerItem(R.string.setting, R.mipmap.ic_launcher)
                     .setOnClickUser(onClickPhoto)
                     .setOnPrepareOptionsMenu(onPrepare)
                     .setOnClickFooter(onClickFooter)

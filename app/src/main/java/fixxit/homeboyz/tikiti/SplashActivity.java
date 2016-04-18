@@ -5,13 +5,8 @@ import android.graphics.PixelFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.os.Handler;
 
-import java.util.HashSet;
-import java.util.logging.Handler;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -20,56 +15,36 @@ public class SplashActivity extends AppCompatActivity {
         Window window = getWindow();
         window.setFormat(PixelFormat.RGBA_8888);
     }
-    /** Called when the activity is first created. */
-    Thread splashTread;
+
+    /**
+     * Called when the activity is first created.
+     */
+    // Splash screen timer
+    private static int SPLASH_TIME_OUT = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        StartAnimations();
+
+        new Handler().postDelayed(new Runnable() {
+
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+
+            @Override
+            public void run() {
+                // This method will be executed once the timer is over
+                // Start your app main activity
+                Intent i = new Intent(SplashActivity.this, MainActivityDrawer.class);
+                startActivity(i);
+
+                // close this activity
+                finish();
+            }
+        }, SPLASH_TIME_OUT);
     }
-
-        private void StartAnimations() {
-            Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
-            anim.reset();
-            LinearLayout l=(LinearLayout) findViewById(R.id.lin_lay);
-            l.clearAnimation();
-            l.startAnimation(anim);
-
-            anim = AnimationUtils.loadAnimation(this, R.anim.translate);
-            anim.reset();
-            ImageView iv = (ImageView) findViewById(R.id.splash);
-            iv.clearAnimation();
-            iv.startAnimation(anim);
-
-            splashTread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        int waited = 0;
-                        // Splash screen pause time
-                        while (waited < 3500) {
-                            sleep(100);
-                            waited += 100;
-                        }
-                        Intent intent = new Intent(SplashActivity.this, MainActivityDrawer.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent);
-                        SplashActivity.this.finish();
-                    } catch (InterruptedException e) {
-                        // do nothing
-                    } finally {
-                        SplashActivity.this.finish();
-                    }
-
-                }
-            };
-            splashTread.start();
-
-        }
-
-
-    }
-
+}
 

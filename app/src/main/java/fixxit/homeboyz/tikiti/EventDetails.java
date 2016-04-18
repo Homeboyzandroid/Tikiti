@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -77,6 +78,9 @@ public class EventDetails extends AppCompatActivity {
         setContentView(R.layout.activity_event_details);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
 
         //the textviews to pass  parameters
@@ -193,5 +197,12 @@ public class EventDetails extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivityDrawer.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }

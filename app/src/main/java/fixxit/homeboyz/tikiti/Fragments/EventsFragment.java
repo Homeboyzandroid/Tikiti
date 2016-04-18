@@ -66,9 +66,6 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     public static final String Event_ID = "event_id";
     public static final String event_name = "event_name";
-    /*public static final String Event_ID = "event_id";
-    public static final String Event_ID = "event_id";
-    public static final String Event_ID = "event_id";*/
 
     Bitmap b;
 
@@ -264,26 +261,10 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
 
-
-
     private void addToAdapter() {
         adapter = new CustomListAdapter(getActivity(), unisList);
         adapter.notifyDataSetChanged();
         lvevents.setAdapter(adapter);
 
     }
-
-
-   /* private void showProgress() {
-        mProgress = ProgressDialog.show(getActivity(), "Please Wait",
-                "Accessing server...");
-    }*/
-
-  /*  private void stopProgress() {
-        mProgress.cancel();
-
-    }*/
-
-    ///“There is nothing quite so useless as doing with great efficiency something that should not be done at all.”
-
 }

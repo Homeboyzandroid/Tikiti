@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ public class TicketPayInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_pay_info);
+
+
         //all the intent pass activities are done here
 
        // final Intent intent= getIntent();
@@ -113,6 +116,12 @@ public class TicketPayInfo extends AppCompatActivity {
         );
         requestQueue.add(jor);
 
+
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        return true;
 
     }
 }
