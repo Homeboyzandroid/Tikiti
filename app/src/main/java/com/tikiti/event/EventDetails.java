@@ -1,4 +1,4 @@
-package fixxit.homeboyz.tikiti;
+package com.tikiti.event;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -27,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+import com.tikiti.event.Utils.Event;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,8 +39,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import fixxit.homeboyz.tikiti.Adapters.AppController;
-import fixxit.homeboyz.tikiti.Utils.Event;
+
+
 
 
 public class EventDetails extends AppCompatActivity {

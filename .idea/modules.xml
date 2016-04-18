@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Tikiti.iml" filepath="$PROJECT_DIR$/Tikiti.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/firstlib/firstlib.iml" filepath="$PROJECT_DIR$/firstlib/firstlib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/firstlib/firstlib.iml" filepath="$PROJECT_DIR$/firstlib/firstlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/newtikiti.iml" filepath="$PROJECT_DIR$/newtikiti.iml" />
     </modules>
   </component>
 </project>

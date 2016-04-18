@@ -1,4 +1,4 @@
-package fixxit.homeboyz.tikiti.Adapters;
+package com.tikiti.event.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,13 +10,14 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.squareup.picasso.Picasso;
+import com.tikiti.event.R;
+import com.tikiti.event.Utils.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import fixxit.homeboyz.tikiti.R;
-import fixxit.homeboyz.tikiti.Utils.Event;
+
 
 /**
  * Created by homeboyz on 4/11/16.

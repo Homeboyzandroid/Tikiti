@@ -1,4 +1,4 @@
-package fixxit.homeboyz.tikiti.Utils;
+package com.tikiti.event.Utils;
 
 import android.graphics.Bitmap;
 

@@ -1,4 +1,4 @@
-package fixxit.homeboyz.tikiti.Adapters;
+package com.tikiti.event.Adapters;
 
 import android.app.Application;
 import android.text.TextUtils;
@@ -7,8 +7,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.tikiti.event.Utils.LruBitmapCache;
 
-import fixxit.homeboyz.tikiti.Utils.LruBitmapCache;
 
 /**
  * Created by homeboyz on 3/24/16.

@@ -1,4 +1,4 @@
-package fixxit.homeboyz.tikiti;
+package com.tikiti.event;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 public class GetTicket extends AppCompatActivity {
     public static final String EVENT_ID = "event_Id";

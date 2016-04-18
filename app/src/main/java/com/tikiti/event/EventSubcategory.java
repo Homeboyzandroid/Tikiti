@@ -1,4 +1,4 @@
-package fixxit.homeboyz.tikiti;
+package com.tikiti.event;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 public class EventSubcategory extends AppCompatActivity {
     String URL = "http://tikiti-tech.co.ke/TikitiAPI/api/v1/list/getEventTicketCategories/28";

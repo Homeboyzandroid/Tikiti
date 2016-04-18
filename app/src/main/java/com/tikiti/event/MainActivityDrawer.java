@@ -1,4 +1,4 @@
-package fixxit.homeboyz.tikiti;
+package com.tikiti.event;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+import com.tikiti.event.Fragments.EventsFragment;
+
 import br.liveo.interfaces.OnItemClickListener;
 import br.liveo.interfaces.OnPrepareOptionsMenuLiveo;
 import br.liveo.model.HelpLiveo;
 import br.liveo.navigationliveo.NavigationLiveo;
-import fixxit.homeboyz.tikiti.Fragments.EventsFragment;
+
 
 public class MainActivityDrawer extends NavigationLiveo implements OnItemClickListener {
 

@@ -1,4 +1,4 @@
-package fixxit.homeboyz.tikiti;
+package com.tikiti.event;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import fixxit.homeboyz.tikiti.Fragments.EventsFragment;
+import com.tikiti.event.Fragments.EventsFragment;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

@@ -92,9 +92,7 @@
             android:textColor="@color/nliveo_black_light"
             android:textSize="@dimen/text_size_small"
             android:visibility="gone"
-            android:layout_below="@+id/button"
-            android:layout_alignLeft="@+id/button"
-            android:layout_alignStart="@+id/button" />
+             />
 
         <TextView
             android:layout_width="wrap_content"

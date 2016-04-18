@@ -1,4 +1,4 @@
-package fixxit.homeboyz.tikiti.Fragments;
+package com.tikiti.event.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -28,6 +28,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
+import com.tikiti.event.Adapters.AppController;
+import com.tikiti.event.Adapters.CustomListAdapter;
+import com.tikiti.event.EventDetails;
+import com.tikiti.event.R;
+import com.tikiti.event.Utils.Event;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,11 +46,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import fixxit.homeboyz.tikiti.Adapters.AppController;
-import fixxit.homeboyz.tikiti.Adapters.CustomListAdapter;
-import fixxit.homeboyz.tikiti.EventDetails;
-import fixxit.homeboyz.tikiti.R;
-import fixxit.homeboyz.tikiti.Utils.Event;
+
 
 /**
  * Created by homeboyz on 3/31/16.
